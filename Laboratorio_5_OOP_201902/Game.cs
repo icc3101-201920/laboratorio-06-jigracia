@@ -16,12 +16,24 @@ namespace Laboratorio_5_OOP_201902
         private List<Deck> decks;
         private List<SpecialCard> captains;
         private Board boardGame;
+        Random random;
+        private bool endGame;
+        private int turn;
 
         //Constructor
         public Game()
         {
             decks = new List<Deck>();
             captains = new List<SpecialCard>();
+            players = new Player[] { new Player(), new Player() };
+            activePlayer = players[random.Next(0, 1)];
+            boardGame = new Board();
+            endGame = false;
+            turn = 0;
+            players[0].Board = boardGame;
+            players[1].Board = boardGame;
+            AddDecks();
+            AddCaptains();
         }
         //Propiedades
         public Player[] Players
