@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Laboratorio_5_OOP_201902.Cards;
 
 namespace Laboratorio_5_OOP_201902
 {
@@ -11,14 +12,17 @@ namespace Laboratorio_5_OOP_201902
         {
             for (int i = 0; i < hand.Cards.Count; i++)
             {
-                if (hand.Cards[i].GetType().Name==nameof(Cards.CombatCard))
+                if (hand.Cards[i].GetType().Name==nameof(CombatCard))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("| (" + i + ") " + hand.Cards[i].Name + " (" + hand.Cards[i].Type + ")  AttackPoints: ("+ (Cards.CombatCard)hand.Cards[i].+ ") |");
+                    CombatCard auxCombatCard = hand.Cards[i] as CombatCard;
+                    Console.Write("| (" + i + ") " + hand.Cards[i].Name + " (" + hand.Cards[i].Type + ")  AttackPoints: ("+auxCombatCard.AttackPoints+ ") |");
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("| (" + i + ") " + hand.Cards[i].Name + " (" + hand.Cards[i].Type + ") |");
                 }
                 
             }
@@ -32,7 +36,7 @@ namespace Laboratorio_5_OOP_201902
                 Console.WriteLine("("+i+") Deck "+i);
             }
         }
-        public void ShowCaptains(List<Cards.SpecialCard> captains)
+        public void ShowCaptains(List<SpecialCard> captains)
         {
 
             Console.WriteLine("Select a captain to represent your team");
