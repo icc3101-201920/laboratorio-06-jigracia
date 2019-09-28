@@ -5,11 +5,15 @@ using Laboratorio_5_OOP_201902.Cards;
 
 namespace Laboratorio_5_OOP_201902
 {
-     public class VIsualization
+     public class Visualization
     {
-
+        public void printSeparator()
+        {
+            Console.WriteLine("-----------------------------------------------------------------------------------");
+        }
         public void ShowHand(Hand hand)
         {
+            Console.WriteLine("Your Hand:");
             for (int i = 0; i < hand.Cards.Count; i++)
             {
                 if (hand.Cards[i].GetType().Name==nameof(CombatCard))
@@ -20,13 +24,13 @@ namespace Laboratorio_5_OOP_201902
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write("| (" + i + ") " + hand.Cards[i].Name + " (" + hand.Cards[i].Type + ") |");
                 }
-                
+
+                Console.ResetColor();
             }
-            Console.ResetColor();
+            Console.WriteLine("");
         }
         public void ShowDecks(List<Deck> decks)
         {
@@ -45,36 +49,62 @@ namespace Laboratorio_5_OOP_201902
                 Console.WriteLine("("+i+") "+captains[i].Name+" / Effect: "+captains[i].Effect);
             }
         }
-        public void GetUserInput(int maxInput, bool stopper = false)
+        public int GetUserInput(int maxInput, bool stopper = false)
         {
-            while (true)
+            if (stopper==false)
             {
-                string auxAnswer = Console.ReadLine();
-                int answer;
-                if (int.TryParse(auxAnswer, out answer))
+                while (true)
                 {
-                    answer = Convert.ToInt32(auxAnswer);
-
-                    if (stopper == false)
+                    string auxAnswer = Console.ReadLine();
+                    int answer;
+                    if (int.TryParse(auxAnswer, out answer))
                     {
-                        if (0 >= answer && answer >= maxInput)
+                        answer = Convert.ToInt32(auxAnswer);
+                        if (0 <= answer && answer <= maxInput-1)
+                        {
+                            return answer;
+                        }
+                        else
                         {
                             ConsoleError("Enter a valid answer");
                         }
                     }
                     else
                     {
-                        if (-1 >= answer && answer >= maxInput)
-                        {
-                           ConsoleError("Enter a valid answer");
-                        }
+                        ConsoleError("Please enter a number");
                     }
                 }
-                else
+            }
+            else
+            {
+                while (true)
                 {
-                    ConsoleError("Please enter a number");
+                    string auxAnswer = Console.ReadLine();
+                    int answer;
+                    if (int.TryParse(auxAnswer, out answer))
+                    {
+                        answer = Convert.ToInt32(auxAnswer);
+                        if (answer==-1)
+                        {
+                            return answer;
+                        }
+                        if (0 <= answer && answer <= maxInput - 1)
+                        {
+                            return answer;
+                        }
+                        else
+                        {
+                            ConsoleError("Enter a valid answer");
+                        }
+                    }
+                    else
+                    {
+                        ConsoleError("Please enter a number");
+                    }
                 }
             }
+
+            
         }
         public void ConsoleError(string errorMessage)
         {
@@ -85,7 +115,7 @@ namespace Laboratorio_5_OOP_201902
         }
         public void ShowProgramMessage(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(message);
             Console.ResetColor();
         }
